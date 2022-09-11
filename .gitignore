@@ -26,3 +26,4 @@ go.work
 *.iws
 .idea/
 /benchmark_output.txt
+.DS_Store
