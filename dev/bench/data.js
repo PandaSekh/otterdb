@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662916972190,
+  "lastUpdate": 1662918092125,
   "repoUrl": "https://github.com/PandaSekh/otterdb",
   "entries": {
     "otterdb benchmarks": [
@@ -684,6 +684,60 @@ window.BENCHMARK_DATA = {
             "value": 92.24,
             "unit": "ns/op",
             "extra": "12804697 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "committer": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "distinct": true,
+          "id": "120e76bfbae462d5df795df7f57274747de7529e",
+          "message": "improved docs\n\nSigned-off-by: Alessio Franceschi <alessiofranceschi2@gmail.com>",
+          "timestamp": "2022-09-11T19:41:02+02:00",
+          "tree_id": "a5f4666f3221c71fd15e8bb6bd10a2bd1d88eb12",
+          "url": "https://github.com/PandaSekh/otterdb/commit/120e76bfbae462d5df795df7f57274747de7529e"
+        },
+        "date": 1662918091412,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkSetStringInteger",
+            "value": 804,
+            "unit": "ns/op",
+            "extra": "1629391 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSetStringString",
+            "value": 621.6,
+            "unit": "ns/op",
+            "extra": "2062578 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSetStringBool",
+            "value": 649.2,
+            "unit": "ns/op",
+            "extra": "2003282 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkFnvHash_Default",
+            "value": 105,
+            "unit": "ns/op",
+            "extra": "11789373 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkFnvHash_Size32",
+            "value": 110.9,
+            "unit": "ns/op",
+            "extra": "11282833 times\n2 procs"
           }
         ]
       }
