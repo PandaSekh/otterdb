@@ -133,11 +133,11 @@ func TestHashTable_GetNotFound(t *testing.T) {
 
 func TestHashTable_expandTable(t *testing.T) {
 	ht := NewSized(567)
-	prevSize := ht.size
+	prevSize := len(ht.buckets)
 
 	ht.expandTable()
 
-	newSize := ht.size
+	newSize := len(ht.buckets)
 
 	if newSize == prevSize {
 		t.Errorf("expandTable() size = %v, want %v", newSize, prevSize*2)
