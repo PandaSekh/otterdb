@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662901266706,
+  "lastUpdate": 1662901492383,
   "repoUrl": "https://github.com/PandaSekh/otterdb",
   "entries": {
     "otterdb benchmarks": [
@@ -30,6 +30,36 @@ window.BENCHMARK_DATA = {
             "value": 133.5,
             "unit": "ns/op",
             "extra": "8829910 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "committer": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "distinct": true,
+          "id": "9bad25039e20e83322c5fc1f5e0cf61481d63f17",
+          "message": "Merge remote-tracking branch 'origin/develop' into develop",
+          "timestamp": "2022-09-11T15:04:10+02:00",
+          "tree_id": "eb6cad4d047d8a7e51e586d899cdb1cd0b21af82",
+          "url": "https://github.com/PandaSekh/otterdb/commit/9bad25039e20e83322c5fc1f5e0cf61481d63f17"
+        },
+        "date": 1662901490702,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkFnvHash",
+            "value": 193.8,
+            "unit": "ns/op",
+            "extra": "5952517 times\n2 procs"
           }
         ]
       }
