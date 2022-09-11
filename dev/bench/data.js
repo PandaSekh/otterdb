@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662901975858,
+  "lastUpdate": 1662903719517,
   "repoUrl": "https://github.com/PandaSekh/otterdb",
   "entries": {
     "otterdb benchmarks": [
@@ -150,6 +150,36 @@ window.BENCHMARK_DATA = {
             "value": 112.4,
             "unit": "ns/op",
             "extra": "10772749 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "committer": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "distinct": true,
+          "id": "8c86524ef83b5d77b2633a430a771c2248aa3f4c",
+          "message": "fixed bug requesting infinite expansions\n\nSigned-off-by: Alessio Franceschi <alessiofranceschi2@gmail.com>",
+          "timestamp": "2022-09-11T15:41:37+02:00",
+          "tree_id": "5781f57f0116cfb12a672adae37e723da0328440",
+          "url": "https://github.com/PandaSekh/otterdb/commit/8c86524ef83b5d77b2633a430a771c2248aa3f4c"
+        },
+        "date": 1662903718837,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkFnvHash",
+            "value": 167.5,
+            "unit": "ns/op",
+            "extra": "6890335 times\n2 procs"
           }
         ]
       }
