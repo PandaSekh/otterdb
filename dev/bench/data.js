@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662904016066,
+  "lastUpdate": 1662904078982,
   "repoUrl": "https://github.com/PandaSekh/otterdb",
   "entries": {
     "otterdb benchmarks": [
@@ -240,6 +240,36 @@ window.BENCHMARK_DATA = {
             "value": 138,
             "unit": "ns/op",
             "extra": "8981397 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "committer": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "distinct": false,
+          "id": "029e38b6520538be89414fbf56a0ac8313f53753",
+          "message": "Merge branch 'release/v0.0.2'",
+          "timestamp": "2022-09-11T15:47:35+02:00",
+          "tree_id": "ffd668c8b04b3b541c77ccfb92a08c404762128c",
+          "url": "https://github.com/PandaSekh/otterdb/commit/029e38b6520538be89414fbf56a0ac8313f53753"
+        },
+        "date": 1662904078373,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkFnvHash",
+            "value": 146,
+            "unit": "ns/op",
+            "extra": "8492812 times\n2 procs"
           }
         ]
       }
