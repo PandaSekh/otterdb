@@ -25,3 +25,4 @@ go.work
 *.ipr
 *.iws
 .idea/
+/benchmark_output.txt
