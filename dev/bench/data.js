@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662904223233,
+  "lastUpdate": 1662904532003,
   "repoUrl": "https://github.com/PandaSekh/otterdb",
   "entries": {
     "otterdb benchmarks": [
@@ -444,6 +444,54 @@ window.BENCHMARK_DATA = {
             "value": 110.9,
             "unit": "ns/op",
             "extra": "11183882 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "committer": {
+            "email": "alessiofranceschi2@gmail.com",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "distinct": true,
+          "id": "5a0e7eb1c0e6d08edc28d6cc1b08505bd579c933",
+          "message": "fixed action\n\nSigned-off-by: Alessio Franceschi <alessiofranceschi2@gmail.com>",
+          "timestamp": "2022-09-11T15:54:56+02:00",
+          "tree_id": "b943591b1547f68865524c64d2dcfed273cddadc",
+          "url": "https://github.com/PandaSekh/otterdb/commit/5a0e7eb1c0e6d08edc28d6cc1b08505bd579c933"
+        },
+        "date": 1662904531599,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkSetStringInteger",
+            "value": 561.6,
+            "unit": "ns/op",
+            "extra": "2061502 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSetStringString",
+            "value": 712.5,
+            "unit": "ns/op",
+            "extra": "2380879 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSetStringBool",
+            "value": 687.1,
+            "unit": "ns/op",
+            "extra": "2497346 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkFnvHash",
+            "value": 141.1,
+            "unit": "ns/op",
+            "extra": "8485208 times\n2 procs"
           }
         ]
       }
