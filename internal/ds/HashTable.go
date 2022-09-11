@@ -2,8 +2,7 @@ package ds
 
 import (
 	"fmt"
-	"otterdb/internal/utils"
-	"sync"
+	"github.com/PandaSekh/otterdb/internal/utils"
 )
 
 const (
@@ -14,7 +13,9 @@ const (
 type HashTable struct {
 	size    int
 	buckets [][]HashTableEntry
-	mu      *sync.Mutex
+	// shall we implement a method to determine if a table expansion is occurring?
+	// if the table exp is occurring, we might return a bool with the result so the consumer knows that the data might
+	// be stale
 }
 
 func (ht *HashTable) String() string {
@@ -31,7 +32,6 @@ func NewSized(initialSize int) *HashTable {
 	return &HashTable{
 		size:    initialSize,
 		buckets: make([][]HashTableEntry, initialSize),
-		mu:      &sync.Mutex{},
 	}
 }
 
@@ -52,9 +52,6 @@ func (ht *HashTable) loadFactor() float32 {
 
 // Get returns the value corresponding to the provided key and true if found
 func (ht *HashTable) Get(key string) (interface{}, bool) {
-	ht.mu.Lock()
-	defer ht.mu.Unlock()
-
 	hash := hashKey(key, len(ht.buckets))
 
 	for _, value := range ht.buckets[hash] {
@@ -82,9 +79,6 @@ func (ht *HashTable) GetNumber(key string) (int, bool) {
 
 // Set a value accessible with the given key
 func (ht *HashTable) Set(key string, value interface{}) {
-	ht.mu.Lock()
-	defer ht.mu.Unlock()
-
 	hash := hashKey(key, len(ht.buckets))
 
 	for i, el := range ht.buckets[hash] {
@@ -98,15 +92,12 @@ func (ht *HashTable) Set(key string, value interface{}) {
 	ht.buckets[hash] = append(ht.buckets[hash], HashTableEntry{key, value})
 	ht.size += 1
 	if ht.loadFactor() > loadFactorThreshold {
-		go ht.expandTable()
+		ht.expandTable()
 	}
 }
 
 // Remove a key
 func (ht *HashTable) Remove(key string) bool {
-	ht.mu.Lock()
-	defer ht.mu.Unlock()
-
 	hash := hashKey(key, len(ht.buckets))
 
 	for index, value := range ht.buckets[hash] {
@@ -123,10 +114,8 @@ func (ht *HashTable) Remove(key string) bool {
 
 // expandTable duplicates the current table size. It temporarily locks the table
 func (ht *HashTable) expandTable() {
-	ht.mu.Lock()
-	defer ht.mu.Unlock()
-
 	newTable := make([][]HashTableEntry, len(ht.buckets)*2)
+
 	for _, bucket := range ht.buckets {
 		for _, e := range bucket {
 			newHash := hashKey(e.key, len(newTable))
@@ -134,5 +123,4 @@ func (ht *HashTable) expandTable() {
 		}
 	}
 	ht.buckets = newTable
-	ht.size = len(ht.buckets)
 }

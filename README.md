@@ -6,3 +6,6 @@
 </h1>
 
 OtterDB is a locally distributed key-value store.
+
+## Benchmarks
+Benchmark result history can be found [here](https://pandasekh.github.io/otterdb/dev/bench/). 

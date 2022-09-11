@@ -25,3 +25,5 @@ go.work
 *.ipr
 *.iws
 .idea/
+/benchmark_output.txt
+.DS_Store
