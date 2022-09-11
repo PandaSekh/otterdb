@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662901827754,
+  "lastUpdate": 1662901870058,
   "repoUrl": "https://github.com/PandaSekh/otterdb",
   "entries": {
     "otterdb benchmarks": [
@@ -90,6 +90,36 @@ window.BENCHMARK_DATA = {
             "value": 130.6,
             "unit": "ns/op",
             "extra": "7856872 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "alessio@alessiofranceschi.dev",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "96f1e19db0ac219fae1971c6601077d2a8b1237b",
+          "message": "Delete .DS_Store\n\nSigned-off-by: Alessio Franceschi <alessio@alessiofranceschi.dev>",
+          "timestamp": "2022-09-11T15:10:43+02:00",
+          "tree_id": "2b445391bbebcc2fdca1916c369c20bafc90dc10",
+          "url": "https://github.com/PandaSekh/otterdb/commit/96f1e19db0ac219fae1971c6601077d2a8b1237b"
+        },
+        "date": 1662901868396,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkFnvHash",
+            "value": 171.7,
+            "unit": "ns/op",
+            "extra": "7017126 times\n2 procs"
           }
         ]
       }
