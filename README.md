@@ -4,7 +4,9 @@
 <h1 align="center">
   OtterDB
 </h1>
-
+<p align="center">
+<a href="https://pkg.go.dev/github.com/PandaSekh/otterdb"><img src="https://pkg.go.dev/badge/github.com/PandaSekh/otterdb.svg" alt="Go Reference"></a>
+</p>
 OtterDB is a locally distributed key-value store.
 
 ## Benchmarks
