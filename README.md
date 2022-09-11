@@ -12,3 +12,8 @@ OtterDB is a locally distributed key-value store.
 
 ## Benchmarks
 Benchmark result history can be found [here](https://pandasekh.github.io/otterdb/dev/bench/). 
+
+## Test Coverage
+To run the tests and verify coverage, run the following commands:  
+`go test ./... -coverprofile=coverage.out`  
+`go tool cover -html=coverage.out`

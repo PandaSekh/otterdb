@@ -105,9 +105,9 @@ func TestHashTable_Get(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		size := 5
+		ht := NewSized(size)
 		t.Run(tt.name, func(t *testing.T) {
-			size := 5
-			ht := NewSized(size)
 			ht.Set(tt.args.key, tt.args.value)
 			got, found := ht.Get(tt.args.key)
 			if !reflect.DeepEqual(got, tt.want) {
@@ -144,6 +144,58 @@ func TestHashTable_expandTable(t *testing.T) {
 	}
 }
 
+func TestHashTable_GetNumber(t *testing.T) {
+	ht := New()
+	ht.Set("key", 1234)
+
+	value, _ := ht.GetNumber("key")
+
+	if value != 1234 {
+		t.Errorf("GetNumber() found = %v, want %v", value, 1234)
+	}
+}
+
+func TestHashTable_GetNumber_NotFound(t *testing.T) {
+	ht := New()
+
+	_, found := ht.GetNumber("key")
+
+	if found != false {
+		t.Errorf("GetNumber() found = %v, want %v", found, false)
+	}
+}
+
+func TestHashTable_GetNumber_NotANumber(t *testing.T) {
+	ht := New()
+	ht.Set("key", "value")
+
+	_, found := ht.GetNumber("key")
+
+	if found != false {
+		t.Errorf("GetNumber() found = %v, want %v", found, false)
+	}
+}
+
+func TestHashTable_SetOverrideValue(t *testing.T) {
+	ht := New()
+	ht.Set("key", 1234)
+
+	value, _ := ht.Get("key")
+
+	if value != 1234 {
+		t.Errorf("Get() found = %v, want %v", value, 1234)
+	}
+
+	ht.Set("key", 4321)
+
+	valueOverride, _ := ht.Get("key")
+
+	if value != 1234 {
+		t.Errorf("Get() found = %v, want %v", valueOverride, 1234)
+	}
+
+}
+
 func TestHashTable_Remove(t *testing.T) {
 	ht := New()
 	key := "my_key"
@@ -160,7 +212,27 @@ func TestHashTable_Remove(t *testing.T) {
 	_, foundAfterRemove := ht.Get(key)
 
 	if foundAfterRemove != false {
-		t.Errorf("Get() foundAfterRemove = %v, want %v", foundAfterRemove, false)
+		t.Errorf("Remove() foundAfterRemove = %v, want %v", foundAfterRemove, false)
+	}
+}
+
+func TestHashTable_RemoveNotPresent(t *testing.T) {
+	ht := New()
+
+	removed := ht.Remove("key")
+
+	if removed != false {
+		t.Errorf("Remove() removed = %v, want %v", removed, false)
+	}
+}
+
+func TestHashTable_String(t *testing.T) {
+	ht := NewSized(5)
+	expected := "Size: 5, Buckets: [[] [] [] [] []]"
+	str := ht.String()
+
+	if str != expected {
+		t.Errorf("String() string = %v, want %v", str, expected)
 	}
 }
 
