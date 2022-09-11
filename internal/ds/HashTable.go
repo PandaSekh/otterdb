@@ -2,7 +2,7 @@ package ds
 
 import (
 	"fmt"
-	"otterdb/internal/utils"
+	"github.com/PandaSekh/otterdb/internal/utils"
 )
 
 const (
