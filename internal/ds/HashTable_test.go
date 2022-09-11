@@ -228,7 +228,7 @@ func TestHashTable_RemoveNotPresent(t *testing.T) {
 
 func TestHashTable_String(t *testing.T) {
 	ht := NewSized(5)
-	expected := "Size: 5, Buckets: [[] [] [] [] []]"
+	expected := "Size: 0, Buckets: [[] [] [] [] []]"
 	str := ht.String()
 
 	if str != expected {

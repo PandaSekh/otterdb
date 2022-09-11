@@ -1,3 +1,4 @@
+// Package ds provides basic Data Structures
 package ds
 
 import (
@@ -6,31 +7,16 @@ import (
 )
 
 const (
-	defaultSize         = 32
+	// defaultSize defines the size of the HashTable
+	defaultSize = 32
+	// loadFactorThreshold is the threshold over which the table will expand. 0.5 seems to be the best value for performance
 	loadFactorThreshold = 0.5
 )
-
-type HashTable struct {
-	size    int
-	buckets [][]HashTableEntry
-	// shall we implement a method to determine if a table expansion is occurring?
-	// if the table exp is occurring, we might return a bool with the result so the consumer knows that the data might
-	// be stale
-}
-
-func (ht *HashTable) String() string {
-	return fmt.Sprintf("Size: %d, Buckets: %v", ht.size, ht.buckets)
-}
-
-type HashTableEntry struct {
-	key   string
-	value interface{}
-}
 
 // NewSized generates a HashTable with the provided buckets size
 func NewSized(initialSize int) *HashTable {
 	return &HashTable{
-		size:    initialSize,
+		size:    0,
 		buckets: make([][]HashTableEntry, initialSize),
 	}
 }
@@ -40,9 +26,9 @@ func New() *HashTable {
 	return NewSized(defaultSize)
 }
 
-// hashKey returns the hash of the provided StringKey capped by limit.
+// hashKey returns the hash of the provided string capped by limit.
 func hashKey(key string, limit int) int {
-	return int(utils.FnvHash(key) % uint64(limit))
+	return int(utils.NewDefault().Hash(key) % uint64(limit))
 }
 
 // loadFactor returns the current loadFactor of the table
@@ -123,4 +109,24 @@ func (ht *HashTable) expandTable() {
 		}
 	}
 	ht.buckets = newTable
+}
+
+// A HashTable is the basic Data Structure of the database
+type HashTable struct {
+	// size is the amount of entities in the HashTable
+	size int
+	// buckets is a multidimensional array of HashTableEntry used to hold the data
+	buckets [][]HashTableEntry
+	// shall we implement a method to determine if a table expansion is occurring?
+	// if the table exp is occurring, we might return a bool with the result so the consumer knows that the data might
+	// be stale
+}
+
+type HashTableEntry struct {
+	key   string
+	value interface{}
+}
+
+func (ht *HashTable) String() string {
+	return fmt.Sprintf("Size: %d, Buckets: %v", ht.size, ht.buckets)
 }
