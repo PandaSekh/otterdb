@@ -6,35 +6,6 @@ import (
 	"sync"
 )
 
-func (d *LocalDatabase) GetAsync(key string, c chan interface{}) {
-	d.mu.Lock()
-	defer d.mu.Unlock()
-	v, found := d.table.Get(key)
-
-	if !found {
-		close(c)
-	} else {
-		c <- v
-	}
-}
-
-func (d *LocalDatabase) SetAsync(key string, value interface{}, c chan bool) {
-	d.mu.Lock()
-	defer d.mu.Unlock()
-
-	d.table.Set(key, value)
-
-	c <- true
-}
-
-func (d *LocalDatabase) RemoveAsync(key string, c chan bool) {
-	d.mu.Lock()
-	defer d.mu.Unlock()
-	res := d.table.Remove(key)
-
-	c <- res
-}
-
 func (d *LocalDatabase) Get(key string) (interface{}, bool) {
 	d.mu.Lock()
 	v, found := d.table.Get(key)

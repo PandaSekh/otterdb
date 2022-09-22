@@ -17,7 +17,7 @@ type RemoteDatabase struct {
 	port string
 }
 
-func (d *RemoteDatabase) GetAsync(key string, c chan interface{}) {
+func (d *RemoteDatabase) Get(key string, c chan interface{}) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 	v, found := d.table.Get(key)
@@ -29,7 +29,7 @@ func (d *RemoteDatabase) GetAsync(key string, c chan interface{}) {
 	}
 }
 
-func (d *RemoteDatabase) SetAsync(key string, value interface{}, c chan bool) {
+func (d *RemoteDatabase) Set(key string, value interface{}, c chan bool) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
@@ -38,7 +38,7 @@ func (d *RemoteDatabase) SetAsync(key string, value interface{}, c chan bool) {
 	c <- true
 }
 
-func (d *RemoteDatabase) RemoveAsync(key string, c chan bool) {
+func (d *RemoteDatabase) Remove(key string, c chan bool) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 	res := d.table.Remove(key)
@@ -46,33 +46,16 @@ func (d *RemoteDatabase) RemoveAsync(key string, c chan bool) {
 	c <- res
 }
 
-func (d *RemoteDatabase) Get(key string) (interface{}, bool) {
-	d.mu.Lock()
-	v, found := d.table.Get(key)
-	d.mu.Unlock()
+func (d *RemoteDatabase) Contains(key string, c chan bool) {
+	channel := make(chan interface{}, 1)
+	d.Get(key, channel)
 
-	return v, found
-}
+	val, open := <-channel
+	if !open && val == nil {
+		c <- false
+	}
 
-func (d *RemoteDatabase) Set(key string, value interface{}) bool {
-	d.mu.Lock()
-	d.table.Set(key, value)
-	d.mu.Unlock()
-
-	return true
-}
-
-func (d *RemoteDatabase) Remove(key string) bool {
-	d.mu.Lock()
-	defer d.mu.Unlock()
-	res := d.table.Remove(key)
-
-	return res
-}
-
-func (d *RemoteDatabase) Contains(key string) bool {
-	_, found := d.Get(key)
-	return found
+	c <- true
 }
 
 func (d *RemoteDatabase) String() string {
@@ -123,17 +106,34 @@ func (d *RemoteDatabase) onClientRequest(connection net.Conn) {
 	inputs := strings.Split(req, " ")
 	switch inputs[0] {
 	case "get":
-		if r, ok := d.Get(inputs[1]); ok {
-			res = fmt.Sprintf("%v", r)
+		var c chan interface{}
+
+		d.Get(inputs[1], c)
+
+		val, open := <-c
+		if !open && val == nil {
+			fmt.Println("Key not found")
 		} else {
-			res = "nil"
+			fmt.Sprintf("%v", val)
 		}
 	case "set":
-		d.Set(inputs[1], inputs[2])
-		res = "ok"
+		var c chan bool
+		d.Set(inputs[1], inputs[2], c)
+		done, open := <-c
+		if !open || !done {
+			fmt.Println("Not done")
+		} else {
+			fmt.Println("Done")
+		}
 	case "rem":
-		d.Remove(inputs[1])
-		res = "ok"
+		var c chan bool
+		d.Remove(inputs[1], c)
+		done, open := <-c
+		if !open || !done {
+			fmt.Println("Not done")
+		} else {
+			fmt.Println("Done")
+		}
 	}
 
 	_, err = connection.Write([]byte(res))
