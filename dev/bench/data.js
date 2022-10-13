@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663872370175,
+  "lastUpdate": 1665684368200,
   "repoUrl": "https://github.com/PandaSekh/otterdb",
   "entries": {
     "otterdb benchmarks": [
@@ -912,6 +912,90 @@ window.BENCHMARK_DATA = {
             "value": 117.4,
             "unit": "ns/op",
             "extra": "9861784 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "alessio@alessiofranceschi.dev",
+            "name": "Alessio Franceschi",
+            "username": "PandaSekh"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a16787932c7d46cff91f60c532f81957820bbb83",
+          "message": "Update README.md\n\nSigned-off-by: Alessio Franceschi <alessio@alessiofranceschi.dev>",
+          "timestamp": "2022-10-13T20:05:20+02:00",
+          "tree_id": "51083bee110dad8d1f199c02fb119678e3892566",
+          "url": "https://github.com/PandaSekh/otterdb/commit/a16787932c7d46cff91f60c532f81957820bbb83"
+        },
+        "date": 1665684367701,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkSetString",
+            "value": 584.9,
+            "unit": "ns/op",
+            "extra": "1907371 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSetInt",
+            "value": 433,
+            "unit": "ns/op",
+            "extra": "2321235 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkGetString",
+            "value": 47.41,
+            "unit": "ns/op",
+            "extra": "24566922 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkGetInt",
+            "value": 47.71,
+            "unit": "ns/op",
+            "extra": "24630057 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkGetObject",
+            "value": 47.06,
+            "unit": "ns/op",
+            "extra": "24788560 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSetStringInteger",
+            "value": 831.8,
+            "unit": "ns/op",
+            "extra": "2214303 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSetStringString",
+            "value": 632.8,
+            "unit": "ns/op",
+            "extra": "2824473 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSetStringBool",
+            "value": 640.9,
+            "unit": "ns/op",
+            "extra": "2796837 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkFnvHash_Default",
+            "value": 141.6,
+            "unit": "ns/op",
+            "extra": "8442990 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkFnvHash_Size32",
+            "value": 142.1,
+            "unit": "ns/op",
+            "extra": "8271990 times\n2 procs"
           }
         ]
       }
