@@ -27,3 +27,4 @@ go.work
 .idea/
 /benchmark_output.txt
 .DS_Store
+/bin

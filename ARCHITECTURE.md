@@ -38,5 +38,5 @@ Includes code used internally, like the core data structures.
 Includes code that should be exposed to anyone importing the library.
 
 ## Performance
-While performance is not a cor objective, everything is done also thinking about that.  
+While performance is not a core objective, everything is done also thinking about that.  
 Benchmarks cover every part of the application and they're tracked to avoid regressions.

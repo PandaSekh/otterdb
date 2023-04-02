@@ -3,7 +3,7 @@ package ds
 
 import (
 	"fmt"
-	"github.com/PandaSekh/otterdb/internal/utils"
+	"github.com/PandaSekh/otterdb/internal/fnvHash"
 )
 
 const (
@@ -28,7 +28,7 @@ func New() *HashTable {
 
 // hashKey returns the hash of the provided string capped by limit.
 func hashKey(key string, limit int) int {
-	return int(utils.NewDefault().Hash(key) % uint64(limit))
+	return int(fnvHash.NewDefault().Hash(key) % uint64(limit))
 }
 
 // loadFactor returns the current loadFactor of the table

@@ -12,15 +12,15 @@ import (
 )
 
 type RemoteDatabase struct {
-	LocalDatabase
+	db   LocalDatabase
 	host string
 	port string
 }
 
 func (d *RemoteDatabase) Get(key string, c chan interface{}) {
-	d.mu.Lock()
-	defer d.mu.Unlock()
-	v, found := d.table.Get(key)
+	d.db.mu.Lock()
+	defer d.db.mu.Unlock()
+	v, found := d.db.table.Get(key)
 
 	if !found {
 		close(c)
@@ -30,18 +30,17 @@ func (d *RemoteDatabase) Get(key string, c chan interface{}) {
 }
 
 func (d *RemoteDatabase) Set(key string, value interface{}, c chan bool) {
-	d.mu.Lock()
-	defer d.mu.Unlock()
+	d.db.mu.Lock()
+	defer d.db.mu.Unlock()
 
-	d.table.Set(key, value)
-
+	d.db.table.Set(key, value)
 	c <- true
 }
 
 func (d *RemoteDatabase) Remove(key string, c chan bool) {
-	d.mu.Lock()
-	defer d.mu.Unlock()
-	res := d.table.Remove(key)
+	d.db.mu.Lock()
+	defer d.db.mu.Unlock()
+	res := d.db.table.Remove(key)
 
 	c <- res
 }
@@ -59,11 +58,11 @@ func (d *RemoteDatabase) Contains(key string, c chan bool) {
 }
 
 func (d *RemoteDatabase) String() string {
-	return fmt.Sprintf("%v", d.table)
+	return fmt.Sprintf("%v", d.db.table)
 }
 
 func (d *RemoteDatabase) GetTable() ds.HashTable {
-	return d.table
+	return d.db.table
 }
 
 func (d *RemoteDatabase) GetHost() string {
@@ -101,42 +100,40 @@ func (d *RemoteDatabase) onClientRequest(connection net.Conn) {
 		fmt.Println("Error reading:", err.Error())
 	}
 	req := string(buffer[:mLen])
-	var res string
+	res := []byte("ok")
 
 	inputs := strings.Split(req, " ")
+
 	switch inputs[0] {
 	case "get":
-		var c chan interface{}
+		c := make(chan interface{}, 1)
 
-		d.Get(inputs[1], c)
+		go d.Get(inputs[1], c)
 
 		val, open := <-c
-		if !open && val == nil {
-			fmt.Println("Key not found")
+		if open && val != nil {
+			res = []byte(val.(string))
 		} else {
-			fmt.Sprintf("%v", val)
+			res = []byte("Not Found")
 		}
 	case "set":
-		var c chan bool
-		d.Set(inputs[1], inputs[2], c)
+		c := make(chan bool, 1)
+		go d.Set(inputs[1], inputs[2], c)
+
 		done, open := <-c
 		if !open || !done {
-			fmt.Println("Not done")
-		} else {
-			fmt.Println("Done")
+			res = []byte("Not ok")
 		}
 	case "rem":
-		var c chan bool
-		d.Remove(inputs[1], c)
+		c := make(chan bool, 1)
+		go d.Remove(inputs[1], c)
 		done, open := <-c
 		if !open || !done {
-			fmt.Println("Not done")
-		} else {
-			fmt.Println("Done")
+			res = []byte("Not ok")
 		}
 	}
 
-	_, err = connection.Write([]byte(res))
+	_, err = connection.Write(res)
 	_ = connection.Close()
 }
 
@@ -146,7 +143,7 @@ func NewDefaultRemoteDatabase() *RemoteDatabase {
 
 func NewRemoteDatabase(host string, port string) *RemoteDatabase {
 	dkv := &RemoteDatabase{
-		LocalDatabase: LocalDatabase{
+		db: LocalDatabase{
 			table: *ds.NewSized(4000),
 			mu:    &sync.Mutex{},
 		},
