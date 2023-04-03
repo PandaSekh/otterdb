@@ -12,6 +12,9 @@ OtterDB is a locally distributed key-value store.
 
 ⚠️ Work in Progress ⚠
 
+## Architecture
+Basic overview of the architecture can be found [here](./ARCHITECTURE.md).
+
 ## Benchmarks
 Benchmark result history can be found [here](https://pandasekh.github.io/otterdb/dev/bench/). 
 
